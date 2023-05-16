@@ -11,7 +11,6 @@ import React from "react";
 import styled from "styled-components";
 import { TodoItem } from "./components/TodoItem";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 export default function App() {
 	const [list, setList] = React.useState([]);
 	const [name, setName] = React.useState("");
@@ -26,7 +25,6 @@ export default function App() {
 				return response.json();
 			})
 			.then(data => {
-				alert(data[0].complete);
 				setList(data);
 			});
 		setLoad(false);
@@ -65,33 +63,35 @@ export default function App() {
 					onChangeText={setName}
 					value={name}
 					placeholder="Add new todo"
-					placeholderTextColor="#FFFFFF"
+					placeholderTextColor="#FFF"
 				/>
-				<Add onPress={handleSubmit} title={"f"}>
+				<Add onPress={handleSubmit}>
 					<Text>
 						<Icon name="plus" size={12} color="#fff" />
 					</Text>
 				</Add>
 			</Inner>
-			<FlatList
-				refreshControl={
-					<RefreshControl refreshing={load} onRefresh={getItems} />
-				}
-				data={list}
-				renderItem={({ item }) => (
-					<TodoItem
-						del={deleteTodo}
-						data={item}
-						keyExtractor={item => item._id}
+			{list.length > 0 ? (
+				<>
+					<FlatList
+						refreshControl={
+							<RefreshControl refreshing={load} onRefresh={getItems} />
+						}
+						data={list}
+						renderItem={({ item }) => (
+							<TodoItem
+								del={deleteTodo}
+								data={item}
+								keyExtractor={item => item._id}
+							/>
+						)}
 					/>
-				)}
-			/>
-			<StatusBar
-				barStyle="dark-content"
-				hidden={false}
-				backgroundColor="#00BCD4"
-				translucent={true}
-			/>
+				</>
+			) : (
+				<Text>safd</Text>
+			)}
+
+			<StatusBar style="auto" />
 		</View>
 	);
 }
