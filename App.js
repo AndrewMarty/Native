@@ -26,6 +26,9 @@ export default function App() {
 			})
 			.then(data => {
 				setList(data);
+			})
+			.catch(err => {
+				alert("Произошла ошибка при получении данных с сервера!");
 			});
 		setLoad(false);
 	}
@@ -37,23 +40,31 @@ export default function App() {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({ name: name.trim(), complete: false }),
-		}).then(async response => {
-			if (response.ok) {
-				const item = await response.json();
-				const newItems = [...list];
-				newItems.push(item);
-				setList(newItems);
-			}
-		});
+		})
+			.then(async response => {
+				if (response.ok) {
+					const item = await response.json();
+					const newItems = [...list];
+					newItems.push(item);
+					setList(newItems);
+				}
+			})
+			.catch(err => {
+				alert("Error: " + err.message);
+			});
 		setName("");
 	}
 	function deleteTodo(id) {
-		fetch(`http://192.168.100.141:5000/delete/${id}`).then(response => {
-			if (response.ok) {
-				const newItems = list.filter(item => item._id !== id);
-				setList(newItems);
-			}
-		});
+		fetch(`http://192.168.100.141:5000/delete/${id}`)
+			.then(response => {
+				if (response.ok) {
+					const newItems = list.filter(item => item._id !== id);
+					setList(newItems);
+				}
+			})
+			.catch(err => {
+				alert("Error: " + err.message);
+			});
 	}
 	return (
 		<View style={styles.container}>
