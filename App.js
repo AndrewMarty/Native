@@ -88,13 +88,18 @@ export default function App() {
 					/>
 				</>
 			) : (
-				<Text>safd</Text>
+				<AddTodo>Add own first todo!</AddTodo>
 			)}
 
 			<StatusBar style="auto" />
 		</View>
 	);
 }
+const AddTodo = styled.Text`
+	color: #fff;
+	font-weight: 500;
+	text-align: center;
+`;
 const Inner = styled.View`
 	margin-bottom: 10px;
 	display: flex;
