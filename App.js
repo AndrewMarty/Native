@@ -90,7 +90,7 @@ export default function App() {
 					onChangeText={setName}
 					value={name}
 					placeholder="Add new todo"
-					placeholderTextColor="#FFF"
+					placeholderTextColor="#fff"
 				/>
 				<Add onPress={handleSubmit}>
 					<Text>
