@@ -4,12 +4,12 @@ import Icon from "react-native-vector-icons/FontAwesome";
 const CheckBoxWrap = styled.TouchableOpacity`
 	justify-content: center;
 	align-items: center;
-	width: 20px;
-	height: 20px;
+	width: 24px;
+	height: 24px;
 	border-radius: 4px;
-	border: 2px solid #454545;
+	border: 2px solid #0e0e11;
 	margin-right: 8px;
-	background: #1f1f1f;
+	background: #2b2d37;
 `;
 export const CheckBox = ({ state, onClick }) => {
 	return (

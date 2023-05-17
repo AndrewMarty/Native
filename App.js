@@ -7,11 +7,24 @@ import {
 	FlatList,
 	View,
 } from "react-native";
-import React from "react";
+import * as SplashScreen from "expo-splash-screen";
+SplashScreen.preventAutoHideAsync();
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import { TodoItem } from "./components/TodoItem";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useFonts } from "expo-font";
+
 export default function App() {
+	const [fontsLoaded] = useFonts({
+		"Inter-Black": require("./assets/fonts/Inter-Black.ttf"),
+		"Inter-Medium": require("./assets/fonts/Inter-Medium.ttf"),
+	});
+	const onLayoutRootView = useCallback(async () => {
+		if (fontsLoaded) {
+			await SplashScreen.hideAsync();
+		}
+	}, [fontsLoaded]);
 	const [list, setList] = React.useState([]);
 	const [name, setName] = React.useState("");
 	const [load, setLoad] = React.useState(true);
@@ -66,9 +79,12 @@ export default function App() {
 				alert("Error: " + err.message);
 			});
 	}
+	if (!fontsLoaded) {
+		return null;
+	}
 	return (
-		<View style={styles.container}>
-			<Title>TodoList for Michael</Title>
+		<View style={styles.container} onLayout={onLayoutRootView}>
+			<Title>Tasks</Title>
 			<Inner>
 				<Field
 					onChangeText={setName}
@@ -112,9 +128,11 @@ const AddTodo = styled.Text`
 	text-align: center;
 `;
 const Inner = styled.View`
-	margin-bottom: 10px;
-	display: flex;
 	flex-direction: row;
+	padding: 8px;
+	border-radius: 30px;
+	background: #2b2d37;
+	margin-bottom: 16px;
 `;
 const Add = styled.TouchableOpacity`
 	border-radius: 50px;
@@ -122,7 +140,7 @@ const Add = styled.TouchableOpacity`
 	align-items: center;
 	min-width: 30px;
 	min-height: 30px;
-	background-color: #faa401;
+	background-color: #38bc80;
 `;
 const Field = styled.TextInput`
 	flex: 1;
@@ -131,26 +149,28 @@ const Field = styled.TextInput`
 	height: 30px;
 	font-size: 12px;
 	margin-right: 10px;
-	background: #1f1f1f;
-	border-width: 1px;
-	border-style: solid;
-	border-color: #d3d3d3;
+	border: none;
+	width: 100%;
+	margin-right: 10px;
+	font-weight: 500;
+	font-size: 16px;
+	background: #2b2d37;
+	font-family: "Inter-Medium";
 `;
 const Title = styled.Text`
-	color: #faa401;
-	font-weight: bold;
+	color: #fff;
+	font-family: "Inter-Black";
 	font-size: 32px;
 	margin-bottom: 10px;
-	border-bottom-width: 1px;
-	border-style: solid;
-	border-color: #d3d3d3;
 	padding-bottom: 5px;
 `;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#000",
+		backgroundColor: "#1e1f25",
 		color: "#fff",
 		paddingTop: Platform.OS === "android" ? 50 : 30,
+		paddingLeft: 10,
+		paddingRight: 10,
 	},
 });

@@ -5,25 +5,28 @@ import { CheckBox } from "./CheckBox";
 import React from "react";
 const TodoWrapper = styled.View`
 	padding: 8px;
-	background: #1f1f1f;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	border-radius: 6px;
-	margin-bottom: 5px;
+	margin-bottom: 16px;
 `;
 const TodoText = styled.Text`
-	color: #fff;
-	font-weight: 500;
-	font-size: 16px;
+	color: #dadada;
+	font-size: 18px;
+	width: 100%;
+	position: relative;
+	margin-right: 10px;
+	font-family: "Inter-Medium";
 `;
 const Trash = styled.TouchableOpacity`
 	justify-content: center;
 	align-items: center;
-	width: 20px;
-	height: 20px;
-	background: #faa401;
+	width: 24px;
+	height: 24px;
+	background: #454545;
 	border-radius: 4px;
+	border: 2px solid #0e0e11;
 `;
 const Row = styled.View`
 	flex-direction: row;
@@ -66,12 +69,12 @@ export const TodoItem = ({ data, del }) => {
 	}
 	return (
 		<TodoWrapper>
+			<CheckBox state={complete} onClick={toggleTodo} />
 			<Wrap>
 				<Line style={complete && { opacity: 1 }} />
 				<TodoText>{data.name}</TodoText>
 			</Wrap>
 			<Row>
-				<CheckBox state={complete} onClick={toggleTodo} />
 				<Trash
 					onPress={() => {
 						del(data._id);
@@ -80,7 +83,7 @@ export const TodoItem = ({ data, del }) => {
 					<Text>
 						<Icon
 							name="trash"
-							style={{ color: "#000" }}
+							style={{ color: "#fff" }}
 							size={12}
 							color="#fff"
 						/>
