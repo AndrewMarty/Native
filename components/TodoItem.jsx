@@ -51,20 +51,22 @@ export const TodoItem = ({ data, del }) => {
 	function toggleTodo() {
 		if (complete) {
 			setComplete(false);
-			fetch(`http://192.168.100.141:5000/unset/${data._id}`).then(response => {
+			fetch(`http://192.168.100.141:5000/unset/${data._id}`, {
+				method: "PUT",
+			}).then(response => {
 				if (!response.ok) {
 					setComplete(true);
 				}
 			});
 		} else {
 			setComplete(true);
-			fetch(`http://192.168.100.141:5000/complete/${data._id}`).then(
-				response => {
-					if (!response.ok) {
-						setComplete(false);
-					}
+			fetch(`http://192.168.100.141:5000/complete/${data._id}`, {
+				method: "PUT",
+			}).then(response => {
+				if (!response.ok) {
+					setComplete(false);
 				}
-			);
+			});
 		}
 	}
 	return (

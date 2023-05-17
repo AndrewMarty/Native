@@ -68,7 +68,9 @@ export default function App() {
 		setName("");
 	}
 	function deleteTodo(id) {
-		fetch(`http://192.168.100.141:5000/delete/${id}`)
+		fetch(`http://192.168.100.141:5000/delete/${id}`, {
+			method: "DELETE",
+		})
 			.then(response => {
 				if (response.ok) {
 					const newItems = list.filter(item => item._id !== id);
