@@ -53,20 +53,28 @@ export const TodoItem = ({ data, del }) => {
 			setComplete(false);
 			fetch(`http://192.168.100.141:5000/unset/${data._id}`, {
 				method: "PUT",
-			}).then(response => {
-				if (!response.ok) {
-					setComplete(true);
-				}
-			});
+			})
+				.then(response => {
+					if (response.ok) {
+						setComplete(true);
+					}
+				})
+				.catch(err => {
+					alert("Error: " + err.message);
+				});
 		} else {
 			setComplete(true);
 			fetch(`http://192.168.100.141:5000/complete/${data._id}`, {
 				method: "PUT",
-			}).then(response => {
-				if (!response.ok) {
-					setComplete(false);
-				}
-			});
+			})
+				.then(response => {
+					if (response.ok) {
+						setComplete(false);
+					}
+				})
+				.catch(err => {
+					alert("Error: " + err.message);
+				});
 		}
 	}
 	return (
