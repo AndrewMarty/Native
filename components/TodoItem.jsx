@@ -55,7 +55,7 @@ export const TodoItem = ({ data, del }) => {
 				method: "PUT",
 			})
 				.then(response => {
-					if (response.ok) {
+					if (!response.ok) {
 						setComplete(true);
 					}
 				})
@@ -68,7 +68,7 @@ export const TodoItem = ({ data, del }) => {
 				method: "PUT",
 			})
 				.then(response => {
-					if (response.ok) {
+					if (!response.ok) {
 						setComplete(false);
 					}
 				})
